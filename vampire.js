@@ -84,7 +84,35 @@ class Vampire {
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
 
+      //Go all of the way up to the root:
+
+      let mainVampire = this;
+
+      while (mainVampire.creator !== null) {
+        mainVampire = mainVampire.creator;
+      }
+
+      //Go through all nodes to search for a specified named:
+
+      let stack = mainVampire.offspring;
+
+      for (let vampire of stack) {
+
+        if (vampire.name = name) {
+
+            return vampire;
+
+        } else {
+
+          vampire.offspring.forEach(element => {
+            stack.push(element);
+          });
+
+        }
+
+      }
     
+    return null;
 
   }
 
